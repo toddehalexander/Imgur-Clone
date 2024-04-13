@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My App</title>
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
-    <script src="app.js"></script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag and Drop Image Upload</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Image Upload</a>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="gallery/gallery.html">Gallery</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Home Page (Upload) -->
+  <div id="drag-drop-container">
+    <h2>Drag and Drop Images</h2>
+    <p>Drop your PNG or JPEG files here</p>
+    <form id="upload-form" action="upload.php" method="POST" enctype="multipart/form-data">
+      <input type="file" id="file-input" name="file" accept="image/png, image/jpeg" hidden>      
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
