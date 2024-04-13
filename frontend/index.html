@@ -21,13 +21,14 @@
   <!-- Home Page (Upload) -->
   <div id="drag-drop-container">
     <h2>Drag and Drop Images</h2>
-    <p>Drop your PNG or JPEG files here</p>
-    <form id="upload-form" action="upload.php" method="POST" enctype="multipart/form-data">
-      <input type="file" id="file-input" name="file" accept="image/png, image/jpeg" hidden>      
-      <button type="submit">Upload</button>
-    </form>
+    <p>Drop your PNG or JPEG files here <br><br>or click to select a file</p>
+    <div id="file-info"></div>
+    <input type="file" id="file-input" name="file" accept="image/png, image/jpeg" hidden>
   </div>
 
-  <script src="script.js"></script>
+  <br>
+  <button id="upload-button" type="button" disabled>Upload</button>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
