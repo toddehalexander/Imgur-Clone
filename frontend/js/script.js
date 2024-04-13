@@ -55,6 +55,14 @@ uploadButton.addEventListener('click', () => {
     // Send the formData to the server using fetch or XMLHttpRequest
     // ...
     console.log('Uploading file:', selectedFile.name);
+
+
+    //THIS IS A TEST CASE TO MAKE SURE IMG IS BEING UPLOADED PROPER, NEED TO CONFIG SENDING TO SERVER!
+    // Open the uploaded PNG image in a new tab
+    if (selectedFile.type === 'image/png') {
+      const imageUrl = URL.createObjectURL(selectedFile);
+      window.open(imageUrl, '_blank');
+    }
   } else {
     alert('Please select a file to upload.');
   }
