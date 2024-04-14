@@ -22,13 +22,13 @@ dragDropContainer.addEventListener('drop', (event) => {
   // Get the first file from the dropped files
   const file = event.dataTransfer.files[0];
 
-  // Check if the file is a PNG or JPEG
-  if (file.type === 'image/png' || file.type === 'image/jpeg') {
+  // Check if the file is a PNG, JPEG, or GIF
+  if (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/gif') {
     selectedFile = file;
     updateFileInfo(file.name);
     enableUploadButton();
   } else {
-    alert('Please drop a PNG or JPEG file.');
+    alert('Please drop a PNG, JPEG, or GIF file.');
   }
 });
 
@@ -38,7 +38,7 @@ dragDropContainer.addEventListener('click', () => {
 
 fileInput.addEventListener('change', () => {
   const file = fileInput.files[0];
-  if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
+  if (file && (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/gif')) {
     selectedFile = file;
     updateFileInfo(file.name);
     enableUploadButton();
@@ -56,13 +56,9 @@ uploadButton.addEventListener('click', () => {
     // ...
     console.log('Uploading file:', selectedFile.name);
 
-
-    //THIS IS A TEST CASE TO MAKE SURE IMG IS BEING UPLOADED PROPER, NEED TO CONFIG SENDING TO SERVER!
-    // Open the uploaded PNG image in a new tab
-    if (selectedFile.type === 'image/png') {
-      const imageUrl = URL.createObjectURL(selectedFile);
-      window.open(imageUrl, '_blank');
-    }
+    // Open the uploaded image in a new tab
+    const imageUrl = URL.createObjectURL(selectedFile);
+    window.open(imageUrl, '_blank');
   } else {
     alert('Please select a file to upload.');
   }
