@@ -55,7 +55,7 @@ body {
   flex-direction: column;
   align-items: center;
   background-color: #f1f1f1;
-  padding-top: 80px; /* Add padding to accommodate the navigation bar */
+  padding-top: 80px; 
 }
 
 #drag-drop-container {
@@ -65,24 +65,33 @@ body {
   width: 400px;
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+#drag-drop-container:hover {
+  border-color: #4CAF50;
+  background-color: #f1f1f1;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 #drag-drop-container.drag-over {
   border-color: #4CAF50;
   background-color: #f1f1f1;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 #upload-button {
-  background-color: #ccc; /* Gray */
+  background-color: #ccc;
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
   font-size: 16px;
-  cursor: default; /* Default cursor */
+  cursor: default;
 }
 
 #upload-button:enabled {
-  background-color: #4CAF50; /* Green */
-  cursor: pointer; /* Pointer cursor */
+  background-color: #4CAF50;
+  cursor: pointer; 
 }
