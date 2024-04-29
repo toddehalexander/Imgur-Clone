@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+
+  php-runtime:
+    image: php:latest
+    ports:
+      - "8000:8000"
+    working_dir: /var/www/html
+    command: >
+      sh -c "docker-php-ext-install mysqli pdo pdo_mysql && php -S 0.0.0.0:8000"
+    volumes:
+      - ./php:/var/www/html
+    networks:
+      static-network:
+
+  database:
+    container_name: database
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.5
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    ports:
+      - 8080:8080
+    networks:
+      static-network:
+
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
