@@ -46,6 +46,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
     <title>Upload Image</title>
 </head>
 <body>
+    
+<div id="drag-drop-container">
+    <h2>Drag and Drop Images</h2>
+    <p>PNG | JPEG | GIF files only <br><br>or click to select a file</p>
+    <div id="file-info"></div>
+    <input type="file" id="file-input" name="file" accept="image/png, image/jpeg, image/gif" hidden>
+  </div>
+  <br>
+  <br>
+  <button id="upload-button" type="button" disabled> Upload</button>
 
     <nav>
         <div class="nav-container">
