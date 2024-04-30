@@ -1,5 +1,4 @@
 <?php
-
 $servername = "172.20.0.5";
 $username = "root";
 $password = "root";
@@ -28,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
     $sql = "INSERT INTO image_database.image_table (image_name, image_file) VALUES ('$image_name', '$imgContent')";
 
     if ($mysqli->query($sql) === TRUE) {
-        // Redirect the user to the gallery.php page
         header("Location: gallery.php");
         exit();
     } else {
@@ -46,17 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
     <title>Upload Image</title>
 </head>
 <body>
-    
-<div id="drag-drop-container">
-    <h2>Drag and Drop Images</h2>
-    <p>PNG | JPEG | GIF files only <br><br>or click to select a file</p>
-    <div id="file-info"></div>
-    <input type="file" id="file-input" name="file" accept="image/png, image/jpeg, image/gif" hidden>
-  </div>
-  <br>
-  <br>
-  <button id="upload-button" type="button" disabled> Upload</button>
-
     <nav>
         <div class="nav-container">
             <a href="index.php" class="nav-logo">Image Upload</a>
@@ -76,5 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
         </form>
     </div>
 
+    <script>
+        document.getElementById('image').addEventListener('change',function(){this.files.length>0&&this.files[0].type.startsWith('image/')?document.querySelector('.upload-button').classList.add('enabled'):document.querySelector('.upload-button').classList.remove('enabled')});
+    </script>
 </body>
 </html>
