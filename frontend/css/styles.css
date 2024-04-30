@@ -1,3 +1,4 @@
+/* Navigation Bar Styles */
 nav {
   background-color: #333;
   position: fixed;
@@ -45,7 +46,7 @@ nav {
   background-color: #555;
 }
 
-/* Upload Page Styles */
+/* Home Page Styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -57,7 +58,8 @@ body {
   padding-top: 80px; 
 }
 
-#upload-container {
+#drag-drop-container {
+  border: 2px dashed #ccc;
   padding: 20px;
   text-align: center;
   width: 400px;
@@ -65,21 +67,21 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
 }
-
-#upload-container h2 {
-  margin-bottom: 20px;
+#drag-drop-container:hover {
+  border-color: #4CAF50;
+  background-color: #f1f1f1;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
-.file-label {
-  font-size: 16px;
+#drag-drop-container.drag-over {
+  border-color: #4CAF50;
+  background-color: #f1f1f1;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
-.file-input {
-  margin-top: 10px;
-}
-
-.upload-button {
-  margin-top: 20px;
+#upload-button {
   background-color: #ccc;
   color: white;
   padding: 10px 20px;
@@ -89,12 +91,7 @@ body {
   cursor: default;
 }
 
-.upload-button:enabled {
+#upload-button:enabled {
   background-color: #4CAF50;
   cursor: pointer; 
-}
-
-.upload-button:disabled {
-  background-color: #ccc;
-  cursor: default; 
 }
