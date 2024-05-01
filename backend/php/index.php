@@ -20,8 +20,17 @@ $sql = "CREATE TABLE IF NOT EXISTS image_database.image_table (
 $mysqli->query($sql);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])) {
-    $image_name = $_FILES['image']['name']; 
+    $image_name = $_FILES['image']['name'];
     $image = $_FILES['image']['tmp_name'];
+    $image_type = $_FILES['image']['type'];
+
+    // Check if the uploaded file is a valid image format
+    $allowed_types = array('image/jpeg', 'image/png', 'image/gif');
+    if (!in_array($image_type, $allowed_types)) {
+        echo "Error: Only JPG, PNG, and GIF files are allowed.";
+        exit();
+    }
+
     $imgContent = addslashes(file_get_contents($image));
 
     $sql = "INSERT INTO image_database.image_table (image_name, image_file) VALUES ('$image_name', '$imgContent')";
@@ -55,11 +64,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
 </nav>
 
 <div id="drag-drop-container" class="drop-zone">
-    <h2>Upload Image</h2>
-    <p>Accepted file types: jpg, jpeg, png, gif</p>
+    <h2 style="text-decoration: underline;">Upload Image</h2>
+    <p>Accepted file types: <br><div style="padding-top: .2em; font-style: italic;">JPG, PNG, GIF</div></p>    
     <div class="drop-message">
-        <div class="upload-icon"></div>
-        <span id="file-name"></span>
+    <div class="upload-icon"></div>
+    <span id="file-name"></span>
     </div>
     <form id="upload-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
     <input type="file" name="image" id="image" class="file-input" accept="image/*">
@@ -101,19 +110,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
     });
 
     function handleFileUpload(file) {
-        if (file.type.startsWith('image/')) {
+        // Check if the file is of a valid image type
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!allowedTypes.includes(file.type)) {
+            // Display an alert if the file is not a valid image
+            alert('Please upload a JPG, PNG, or GIF file.');
+            // Clear the file input
+            input.value = '';
+            uploadButton.classList.remove('enabled');
+            uploadButton.setAttribute('disabled', 'disabled');
+        } else {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => {
                 uploadButton.classList.add('enabled');
                 uploadButton.removeAttribute('disabled');
             };
-        } else {
-            alert('Please upload an image file.');
         }
     }
 
     uploadButton.addEventListener('click', () => {
+        // Check if a file is selected
+        if (input.files.length === 0) {
+            alert('Please select a file to upload.');
+            return;
+        }
+
+        // Check if the selected file is of a valid image type
+        const file = input.files[0];
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!allowedTypes.includes(file.type)) {
+            alert('Please upload a JPG, PNG, or GIF file.');
+            input.value = '';
+            return;
+        }
+
         form.submit();
     });
     input.addEventListener('click', (e) => {
