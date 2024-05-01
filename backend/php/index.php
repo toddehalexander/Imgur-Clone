@@ -19,6 +19,9 @@ $sql = "CREATE TABLE IF NOT EXISTS image_database.image_table (
 )";
 $mysqli->query($sql);
 
+// Clear the file name
+$image_name = '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])) {
     $image_name = $_FILES['image']['name'];
     $image = $_FILES['image']['tmp_name'];
@@ -150,6 +153,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
     input.addEventListener('click', (e) => {
     e.stopPropagation();
 });
+
+window.onload = function() {
+    // Force a hard refresh
+    if (window.performance) {
+        if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+            // Page was reloaded
+        } else {
+            // Page was not reloaded, force a hard refresh
+            location.reload(true);
+        }
+    }
+};
 </script>
 </body>
 </html>
