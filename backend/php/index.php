@@ -40,31 +40,85 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
     <title>Upload Image</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <a href="index.php" class="nav-logo">Image Upload</a>
-            <ul class="nav-menu">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="gallery.php">Gallery</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <div id="upload-container">
-        <h2>Upload Image</h2>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-            <label for="image" class="file-label">Select image to upload:</label>
-            <input type="file" name="image" id="image" class="file-input">
-            <input type="submit" value="Upload Image" name="submit" class="upload-button">
-        </form>
+<nav>
+    <div class="nav-container">
+        <a href="index.php" class="nav-logo">Image Upload</a>
+        <ul class="nav-menu">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="gallery.php">Gallery</a></li>
+        </ul>
     </div>
+</nav>
 
-    <script>
-        document.getElementById('image').addEventListener('change',function(){this.files.length>0&&this.files[0].type.startsWith('image/')?document.querySelector('.upload-button').classList.add('enabled'):document.querySelector('.upload-button').classList.remove('enabled')});
-    </script>
+<div id="drag-drop-container" class="drop-zone">
+    <h2>Upload Image</h2>
+    <p>Accepted file types: jpg, jpeg, png, gif</p>
+    <div class="drop-message">
+        <div class="upload-icon"></div>
+        <span id="file-name"></span>
+    </div>
+    <form id="upload-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+    <input type="file" name="image" id="image" class="file-input" accept="image/*">
+    </form>
+</div>
+
+    <button id="upload-button" class="upload-button" disabled>Upload Image</button>
+
+<script>
+    const dropZone = document.querySelector('.drop-zone');
+    const input = document.getElementById('image');
+    const form = document.getElementById('upload-form');
+    const uploadButton = document.getElementById('upload-button');
+
+    dropZone.addEventListener('click', () => {
+        input.click();
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('drag-over');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        const file = e.dataTransfer.files[0];
+        input.files = e.dataTransfer.files;
+        handleFileUpload(file);
+    });
+
+    input.addEventListener('change', () => {
+        const file = input.files[0];
+        handleFileUpload(file);
+    });
+
+    function handleFileUpload(file) {
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                uploadButton.classList.add('enabled');
+                uploadButton.removeAttribute('disabled');
+            };
+        } else {
+            alert('Please upload an image file.');
+        }
+    }
+
+    uploadButton.addEventListener('click', () => {
+        form.submit();
+    });
+    input.addEventListener('click', (e) => {
+    e.stopPropagation();
+});
+</script>
 </body>
 </html>
