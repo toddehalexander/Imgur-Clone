@@ -1,6 +1,10 @@
 # Imgur Clone Overview
 
-This document provides an overview of the ports used in the provided Docker Compose file and how to run the project on your local machine.
+
+<p align="center">
+  <img src="https://github.com/toddehalexander/Imgur-Clone/assets/49360048/1d2f7c50-6401-4ed7-8a37-1d1e5b57dad4" alt="Your GIF">
+</p>
+
 
 ## Service Ports
 
