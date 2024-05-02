@@ -154,17 +154,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
     e.stopPropagation();
 });
 
-window.onload = function() {
-    // Force a hard refresh
-    if (window.performance) {
-        if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-            // Page was reloaded
-        } else {
-            // Page was not reloaded, force a hard refresh
-            location.reload(true);
-        }
-    }
-};
 </script>
 </body>
 </html>
