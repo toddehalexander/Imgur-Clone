@@ -5,27 +5,6 @@
   <img src="https://github.com/toddehalexander/Imgur-Clone/blob/main/assets/usecase.gif" alt="Your GIF">
 </p>
 
-
-## Service Ports
-
-### PHP Runtime Service
-
-- **Container Port**: 8000
-- **Host Port**: 8000
-- **Description**: Exposes the PHP runtime environment for hosting PHP web applications.
-
-### Database Service (MySQL)
-
-- **Container Port**: 3306
-- **Host Port**: 3306
-- **Description**: Exposes the MySQL database server for storing and managing application data.
-
-### Adminer Service
-
-- **Container Port**: 8080
-- **Host Port**: 8080
-- **Description**: Exposes Adminer, a web-based database management tool, for interacting with the MySQL database through a web interface.
-
 ## How to Run
 
 1. Navigate to the `backend` folder of **this** project in your terminal:
@@ -51,5 +30,27 @@
     - Click on `image_database` from the list of databases.
     - Click on `image_table` from the list of tables.
     - Select `Select data` to see the uploaded files information.
+
+## Service Ports
+
+### PHP Runtime Service
+
+- **Container Port**: 8000
+- **Host Port**: 8000
+- **Description**: Exposes the PHP runtime environment for hosting PHP web applications.
+
+### Database Service (MySQL)
+
+- **Container Port**: 3306
+- **Host Port**: 3306
+- **Description**: Exposes the MySQL database server for storing and managing application data.
+
+### Adminer Service
+
+- **Container Port**: 8080
+- **Host Port**: 8080
+- **Description**: Exposes Adminer, a web-based database management tool, for interacting with the MySQL database through a web interface.
+
+
 
   **To be continued**
