@@ -7,9 +7,9 @@
 
 ## How to Run
 
-1. Navigate to the `backend` folder of **this** project in your terminal:
+1. Navigate to the `src` folder of **this** project in your terminal:
     ```
-    cd path/to/backend
+    cd path/to/src
     ```
 
 2. Run the following command to start the Docker containers:
