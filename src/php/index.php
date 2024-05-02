@@ -46,7 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,13 +77,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
     </form>
 </div>
 
-    <button id="upload-button" class="upload-button" disabled>Upload Image</button>
+<button id="upload-button" class="upload-button" disabled>Upload Image</button>
+
+<div id="image-preview-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <h2>Upload Preview</h2>
+    <span id="preview-placeholder" style="display: block;">A preview will appear here once you upload.</span>
+    <img id="image-preview" src="#" alt="" style="height: 300px;">
+</div>
 
 <script>
     const dropZone = document.querySelector('.drop-zone');
     const input = document.getElementById('image');
     const form = document.getElementById('upload-form');
     const uploadButton = document.getElementById('upload-button');
+    const imagePreview = document.getElementById('image-preview');
+    const previewPlaceholder = document.getElementById('preview-placeholder');
 
     dropZone.addEventListener('click', () => {
         input.click();
@@ -112,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
         handleFileUpload(file);
     });
 
-        function handleFileUpload(file) {
+    function handleFileUpload(file) {
         // Check if the file is of a valid image type
         const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         if (!allowedTypes.includes(file.type)) {
@@ -122,6 +129,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
             input.value = '';
             uploadButton.classList.remove('enabled');
             uploadButton.setAttribute('disabled', 'disabled');
+            // Clear the image preview
+            imagePreview.src = '';
+            previewPlaceholder.style.display = 'block';
             return;
         }
         
@@ -134,14 +144,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
             input.value = '';
             uploadButton.classList.remove('enabled');
             uploadButton.setAttribute('disabled', 'disabled');
+            // Clear the image preview
+            imagePreview.src = '';
+            previewPlaceholder.style.display = 'block';
             return;
         }
 
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
+            imagePreview.src = reader.result;
             uploadButton.classList.add('enabled');
             uploadButton.removeAttribute('disabled');
+            previewPlaceholder.style.display = 'none';
         };
     }
 
@@ -163,9 +178,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
 
         form.submit();
     });
+
     input.addEventListener('click', (e) => {
-    e.stopPropagation();
-});
+        e.stopPropagation();
+    });
 
 </script>
 </body>
