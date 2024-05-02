@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
         handleFileUpload(file);
     });
 
-    function handleFileUpload(file) {
+        function handleFileUpload(file) {
         // Check if the file is of a valid image type
         const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         if (!allowedTypes.includes(file.type)) {
@@ -122,14 +122,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
             input.value = '';
             uploadButton.classList.remove('enabled');
             uploadButton.setAttribute('disabled', 'disabled');
-        } else {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                uploadButton.classList.add('enabled');
-                uploadButton.removeAttribute('disabled');
-            };
+            return;
         }
+        
+        // Check if the file size is within the limit
+        const maxSize = 2 * 1024 * 1024; // 2 MB in bytes
+        if (file.size > maxSize) {
+            // Display an alert if the file size exceeds the limit
+            alert('File size exceeds the limit of 2 MB.');
+            // Clear the file input
+            input.value = '';
+            uploadButton.classList.remove('enabled');
+            uploadButton.setAttribute('disabled', 'disabled');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            uploadButton.classList.add('enabled');
+            uploadButton.removeAttribute('disabled');
+        };
     }
 
     uploadButton.addEventListener('click', () => {
