@@ -41,11 +41,13 @@
 
       if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+          $base64 = base64_encode($row['image_file']);
+          $imageData = "data:image/jpeg;base64," . $base64;
           echo "<li>";
-          echo "<img src='data:image/jpeg;base64," . base64_encode($row['image_file']) . "' alt='" . $row['image_name'] . "' />";
-          echo "<div class='overlay'><span>" . $row['image_name'] . "</span></div>";
+          echo "<img src='" . $imageData . "' alt='" . $row['image_name'] . "' onclick='openImage(\"" . $imageData . "\")' />";
+          echo "<div class='overlay' onclick='openImage(\"" . $imageData . "\")'><span>" . $row['image_name'] . "</span></div>";
           echo "</li>";
-        }
+      }
       } else {
         echo "<li><p>No images uploaded yet.</p></li>";
       }
@@ -54,7 +56,16 @@
       ?>
     </ul>
   </div>
-  <script src="gallery.js"></script>
+  <script>
+function openImage(url) {
+    var img = new Image();
+    img.src = url;
+    img.onload = function() {
+        var win = window.open();
+        win.document.write("<img src='" + url + "' />");
+    }
+}
+</script>
 </body>
 
 </html>
