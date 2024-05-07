@@ -32,10 +32,10 @@ ul {
 }
 
 .image-gallery > li {
-  flex: 1 1 auto; /* or flex: auto; */
+  position: relative;
+  flex: 1 1 auto;
   height: 300px;
   cursor: pointer;
-  position: relative;
 }
 
 .image-gallery::after {
@@ -65,8 +65,10 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
 }
 
 .image-gallery li:hover .overlay {
   transform: scale(1);
+  opacity: 1;
 }
