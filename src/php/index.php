@@ -39,6 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
     $sql = "INSERT INTO image_database.image_table (image_name, image_file) VALUES ('$image_name', '$imgContent')";
 
     if ($mysqli->query($sql) === TRUE) {
+        // Log the uploaded file name and current time to a text file
+        $logMessage = "File '$image_name' uploaded at " . date("Y-m-d H:i:s") . "\n";
+        file_put_contents("upload_log.txt", $logMessage, FILE_APPEND | LOCK_EX);
+        
         header("Location: gallery.php");
         exit();
     } else {
