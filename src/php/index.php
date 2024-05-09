@@ -86,26 +86,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
 </div>
 
 <script>
-    const dropZone = document.querySelector('.drop-zone');
-    const input = document.getElementById('image');
-    const form = document.getElementById('upload-form');
-    const uploadButton = document.getElementById('upload-button');
-    const imagePreview = document.getElementById('image-preview');
-    const previewPlaceholder = document.getElementById('preview-placeholder');
+    const dropZone = document.querySelector('.drop-zone'); // Selects the drop zone element
+    const input = document.getElementById('image'); // Selects the file input element
+    const form = document.getElementById('upload-form'); // Selects the upload form element
+    const uploadButton = document.getElementById('upload-button'); // Selects the upload button element
+    const imagePreview = document.getElementById('image-preview'); // Selects the image preview element
+    const previewPlaceholder = document.getElementById('preview-placeholder'); // Selects the preview placeholder element
 
+    // Event listener for click on the drop zone, triggers file input click
     dropZone.addEventListener('click', () => {
         input.click();
     });
 
+    // Event listener for drag over the drop zone, adds CSS class for visual feedback
     dropZone.addEventListener('dragover', (e) => {
         e.preventDefault();
         dropZone.classList.add('drag-over');
     });
 
+    // Event listener for drag leave the drop zone, removes CSS class for visual feedback
     dropZone.addEventListener('dragleave', () => {
         dropZone.classList.remove('drag-over');
     });
 
+    // Event listener for drop on the drop zone, handles dropped files
     dropZone.addEventListener('drop', (e) => {
         e.preventDefault();
         dropZone.classList.remove('drag-over');
@@ -114,42 +118,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
         handleFileUpload(file);
     });
 
+    // Event listener for file input change, handles selected files
     input.addEventListener('change', () => {
         const file = input.files[0];
         handleFileUpload(file);
     });
 
+    // Function to handle file upload, checks file type and size, and displays preview
     function handleFileUpload(file) {
-        // Check if the file is of a valid image type
         const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         if (!allowedTypes.includes(file.type)) {
             // Display an alert if the file is not a valid image
             alert('Please upload a JPG, PNG, or GIF file.');
-            // Clear the file input
             input.value = '';
             uploadButton.classList.remove('enabled');
             uploadButton.setAttribute('disabled', 'disabled');
-            // Clear the image preview
             imagePreview.src = '';
             previewPlaceholder.style.display = 'block';
             return;
         }
         
-        // Check if the file size is within the limit
         const maxSize = 2 * 1024 * 1024; // 2 MB in bytes
         if (file.size > maxSize) {
             // Display an alert if the file size exceeds the limit
             alert('File size exceeds the limit of 2 MB.');
-            // Clear the file input
             input.value = '';
             uploadButton.classList.remove('enabled');
             uploadButton.setAttribute('disabled', 'disabled');
-            // Clear the image preview
             imagePreview.src = '';
             previewPlaceholder.style.display = 'block';
             return;
         }
-
+            // Display the file name in the drop zone
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
@@ -160,14 +160,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
         };
     }
 
+    // Event listener for upload button click, submits the form if file is selected and valid
     uploadButton.addEventListener('click', () => {
-        // Check if a file is selected
         if (input.files.length === 0) {
             alert('Please select a file to upload.');
             return;
         }
 
-        // Check if the selected file is of a valid image type
         const file = input.files[0];
         const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         if (!allowedTypes.includes(file.type)) {
@@ -179,10 +178,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_FILES['image']['tmp_name'])
         form.submit();
     });
 
+    // Prevents file manager opening 2 times if clicked "choose file", counts for both the button and the drop zone
     input.addEventListener('click', (e) => {
         e.stopPropagation();
     });
-
 </script>
 </body>
 </html>
