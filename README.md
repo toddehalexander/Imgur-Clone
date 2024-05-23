@@ -6,7 +6,7 @@ This is a web application that allows users to upload and view images, similar t
 
   <img src="https://github.com/toddehalexander/Imgur-Clone/blob/main/assets/usecase.gif" alt="Your GIF">
 
-## Features
+## Features 
 
 - **Image Upload**: Users can upload JPG, PNG, and GIF image files to the application.
 - **Image Gallery**: All uploaded images are displayed in a gallery view, with thumbnails and image names.
